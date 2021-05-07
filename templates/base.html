@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{url_for('static', filename='media/bmka-ico.png')}}" type="image/x-icon">
+    
+    <!-- CSS static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>{% block headTitle %}{% endblock %} | BMKA</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg my-3 mx-auto" id="nav">
+            <a class="navbar-brand h1 mx-auto" {% block logolink %}{% endblock %}>
+                <img src="{{ url_for('static', filename='media/bmka-logo.png') }}" class="img-fluid logo header-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="fa fa-bars"></i>
+              </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item px-3">
+                    <a class="nav-link" {% block menulinkhome %}{% endblock %}>
+                        <i class="fa fa-home pic-before"></i>
+                        {% block home %}
+                        {% endblock %}
+                        <i class="fa fa-home  pic-after"></i>
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item px-3">
+                  <a class="nav-link" {% block menulinkservices %}{% endblock %}>
+                      <i class="fa fa-truck pic-before"></i>
+                      {% block services %}
+                      {% endblock %}
+                      <i class="fa fa-truck  pic-after"></i>
+                  </a>
+                </li>
+                <li class="nav-item px-3">
+                    <a class="nav-link" {% block menulinkabout %}{% endblock %}>
+                        <i class="fa fa-user pic-before"></i>
+                        {% block about %}
+                        {% endblock %}
+                        <i class="fa fa-user  pic-after"></i>
+                    </a>
+                </li>
+                <li class="nav-item px-3">
+                    <a class="nav-link" {% block menulinkcontacts %}{% endblock %}>
+                        <i class="fa fa-phone pic-before"></i>
+                        {% block contacts %}
+                        {% endblock %}
+                        <i class="fa fa-phone pic-after"></i>
+                    </a>
+                </li>
+                <li class="adaptive-lang nav-item dropdown px-3">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% block language%}{% endblock %}<i class="fa fa-language pic-after"></i>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/">DE <img class="flag" src="{{ url_for('static', filename='media/Germany.png') }}"></a>
+                    <a class="dropdown-item" href="/en/">EN <img class="flag" src="{{ url_for('static', filename='media/Britain.png') }}"></a>
+                    <a class="dropdown-item" href="/ru/">RU <img class="flag" src="{{ url_for('static', filename='media/Russia.png') }}"></a>
+                  </div>
+                </li>
+                <li class="row">
+                    <div class="lang row">
+                        <a class="lang-link text-dark" href="/"><b>DE </b></a> |
+                        <a class="lang-link text-dark" href="/en/"><b>EN </b></a> |
+                        <a class="lang-link text-dark" href="/ru/"><b>RU </b></a>
+                    </div>
+                </li>
+                {% if current_user.has_role('admin') %}
+                <li class="adaptive-lang nav-item dropdown px-3">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Панель администратора <i class="fa fa-wrench"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/create-service">+ Новая услуга </a>
+                      <a class="dropdown-item" href="/create-about">+ Новая статья о нас </a>
+                      <a class="dropdown-item" href="/create-contact">+ Новый контакт </a>
+                      <a class="btn btn-danger text-light mx-3" href="/logout">Выйти </a>
+                    </div>
+                  </li>
+                  {% endif %}
+              </ul>
+            </div>
+        </nav>
+
+        {% if current_user.has_role('admin') %}
+            <div class="dropdown lang admin-btn">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="admin-img" src="{{ url_for('static', filename = 'media/admin.jpg') }}" alt="img">
+                </a>
+            
+                <div class="dropdown-menu my-5" aria-labelledby="dropdownMenuLink">
+                    <a class="mx-4 btn btn-success d-block" href="/create-service"> + Новая услуга </a><br>
+                    <a class="mx-4 btn btn-success d-block" href="/create-about"> + Новая статья о нас </a><br>
+                    <a class="mx-4 btn btn-success d-block" href="/create-contact"> + Новый контакт </a><hr>
+                    <a class="mx-4 btn btn-danger d-block" href="/logout">Выйти </a>
+                </div>
+            </div>
+        {% endif %}
+
+    </header>
+    
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container row mx-auto" id="footer-links">
+            <div class="col-md-2 my-4 footer-logo">
+                <a {% block footerLogoHome %}{% endblock %}>
+                    <img src="{{ url_for('static', filename='media/bmka-logo.png') }}" alt="Picture" class="img-fluid logo">
+                </a>
+                </div>
+            <div class="col-md-10 my-4">
+                <div class="mx-2">
+                    <ul class="row text-light mx-auto" id="footer-nav">
+                        <li class="d-inline"><a {% block footerLinkHome %}{% endblock %}>
+                            {% block footerHome %}{% endblock %}
+                        </a></li>
+                        <li class="d-inline"><a {% block footerLinkServices %}{% endblock %}>
+                            {% block footerServices %}{% endblock %}
+                        </a></li>
+                        <li class="d-inline"><a {% block footerLinkAbout %}{% endblock %}>
+                            {% block footerAbout %}{% endblock %}
+                        </a></li>
+                        <li class="d-inline"><a {% block footerLinkContacts %}{% endblock %}>
+                            {% block footerContacts %}{% endblock %}
+                        </a></li>
+                    </ul>
+                    <hr class="footer-hr">
+                    <ul class="row text-light mx-auto" id="footer-nav">
+                        <li><a href="tel:+4915119190019">
+                            +49151 19 19 00 19
+                        </a></li><br>
+                        <li><a href="mailto: info@bmka-gmbh.de">
+                            Info@BMKA-GMBH.de
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <small>
+                &#169; <a class="footer-link text-center" href="/rights">All rights reserved </a>
+            </small>
+            &#160;&#160;&#160;&#160;
+            <small>
+                <a class="footer-link text-center" href="{% block privacyLink %}{% endblock %}">{% block privacy %}{% endblock %}</a>
+            </small>
+        </div>
+    </footer>
+
+
+<!-- JS, Popper and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
+integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" 
+crossorigin="anonymous"></script>
+
+<!-- JavaScript -->
+<script src="{{ url_for('static', filename='script/script.js') }}"></script>
+
+</body>
+</html>

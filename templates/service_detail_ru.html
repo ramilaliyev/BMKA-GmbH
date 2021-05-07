@@ -1,0 +1,105 @@
+{% extends 'base_ru.html' %}
+
+{% block headTitle %}
+    {{service.service_title_ru}}
+{% endblock %}
+
+{% block content %}
+    <h2 class="display-4 text-center">{{service.service_title_ru}}</h2>
+    {% if service.slug == "Cargo-transportation" %}
+        <div class="col-md-9 container mx-auto my-3 mb-5 p-3 main-article-picker">
+            {% for item in cargo %}
+                <div class="container row my-3 mx-auto p-3 main-article">
+                    {% if item.img_link is not none %}
+                        <div class="col-md-6">
+                            <img src="{{ item.img_link }}" alt="Picture" class="service-img img-fluid p-3  mx-auto d-block">
+                        </div>
+                    {% endif %}
+                    <div class="{% if item.img_link is not none %} col-md-6 {% endif %} my-md-5 ser-text">
+                        <p class="my-3 text-center"><b>{{ item.cargo_title_ru }}</b></p>
+                        <p class="my-3 text-center">{{ item.cargo_amount_ru }}</p>
+                    </div>
+                    {% if current_user.has_role('admin') %}
+                        <a href="/services/Cargo-transportation/{{ item.id }}/edit" class="btn btn-sm btn-success mx-auto"><i class="fa fa-pencil"></i></a>
+                        <a href="/services/Cargo-transportation/{{ item.id }}/del" class="btn btn-sm btn-danger mx-auto"><i class="fa fa-times"></i></a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if current_user.has_role('admin') %}
+                <div class="container row my-3 mx-auto p-3 main-article">
+                    <a href="/create-cargo-service" class="mx-auto btn btn-success">+ Новая услуга</a>
+                </div>
+            {% endif %}
+        </div>
+    {% elif service.slug == "People-transportation" %}
+        <div class="col-md-9 container mx-auto my-3 mb-5 p-3 main-article-picker">
+            {% for item in people %}
+                <div class="container row my-3 mx-auto p-3 main-article">
+                    {% if item.img_link is not none %}
+                        <div class="col-md-6">
+                            <img src="{{ item.img_link }}" alt="Picture" class="service-img img-fluid p-3 mx-auto d-block">
+                        </div>
+                    {% endif %}
+                    <div class="{% if item.img_link is not none %} col-md-6 {% endif %} my-md-5">
+                        <p class="my-3 text-center ser-text"><b>{{ item.transport_title_ru }}</b></p>
+                    </div>
+                    {% if current_user.has_role('admin') %}
+                        <a href="/services/People-transportation/{{ item.id }}/edit" class="btn btn-sm btn-success mx-auto"><i class="fa fa-pencil"></i></a>
+                        <a href="/services/People-transportation/{{ item.id }}/del" class="btn btn-sm btn-danger mx-auto"><i class="fa fa-times"></i></a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if current_user.has_role('admin') %}
+                <div class="container row my-3 mx-auto p-3 main-article">
+                    <a href="/create-people-service" class="mx-auto btn btn-success">+ Новая услуга</a>
+                </div>
+            {% endif %}
+        </div>
+    {% elif service.slug == "Purchase-and-sale-of-goods" %}
+        <div class="col-md-9 container mx-auto my-3 mb-5 p-3 main-article-picker">
+            <div class="my-3 mx-auto p-3 main-article">
+                <h2 class="text-center">Технологические гаджеты</h2>
+                <div class="row purchase-block">
+                    {% for item in tech_gadgets %}
+                        <img src="{{ item.img_link }}" alt="Picture" class="purchase-img img-fluid p-3 mx-auto d-block">
+                        {% if current_user.has_role('admin') %}
+                            <a href="/services/Purchase-and-sale-of-goods/tech-gadgets/{{ item.id }}/del" class="btn btn-sm btn-danger mx-auto"><i class="fa fa-times"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current_user.has_role('admin') %}
+                        <div class="container row my-3 mx-auto p-3 main-article">
+                            <a href="/create-tech-gadget/" class="mx-auto btn btn-success">+ Новый товар</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <hr>
+                <h2 class="text-center">Товары домашнего обихода</h2>
+                <div class="row purchase-block">
+                    {% for item in home_items %}
+                        <img src="{{ item.img_link }}" alt="Picture" class="purchase-img img-fluid p-3 mx-auto d-block">
+                        {% if current_user.has_role('admin') %}
+                            <a href="/services/Purchase-and-sale-of-goods/home-items/{{ item.id }}/del" class="btn btn-sm btn-danger mx-auto"><i class="fa fa-times"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if current_user.has_role('admin') %}
+                        <div class="container row my-3 mx-auto p-3 main-article">
+                            <a href="/create-home-item/" class="mx-auto btn btn-success">+ Новый товар</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-md-9 container mx-auto my-3 mb-5 p-3 main-article-picker">
+            <div class="container my-3 mx-auto p-3 main-article">
+                {% if service.img_link is not none %}
+                        <img src="{{ service.img_link }}" alt="Picture" class="img-fluid p-3 mx-auto d-block">
+                {% endif %}
+                <div>
+                    <p class="my-1 text-center ser-text"><b>{{ service.service_title_ru }}</b></p>
+                    <p class="my-3 text-center">{{ service.service_text_ru }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

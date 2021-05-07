@@ -1,0 +1,78 @@
+{% extends 'base_ru.html' %}
+
+{% block headTitle %}
+    О нас
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2 class="text-center display-4 adaptive-heading">О нас</h2>
+        <div class="container mx-auto my-4 py-3 main-article-picker">
+            <div class="container mx-auto my-3 p-3 main-article">
+                <img class="img-fluid mx-auto d-block about-pic" src="{{ url_for('static', filename='media/About.png') }}" alt="Picture">
+                <p class="text-center px-5 py-2 pt-3 mx-auto">
+                    Компания «БMKA» ГмбХ  специализируется на перевозках всех видов грузов. 
+                    Осуществляем перевозки на всей территории Гамбурга и Европы, а также межгородские  поездки. 
+                    Предоставляем услуги VIP(авто класса люкс,переводчик,гид).
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    Нашим ключевым фактором является индивидуальный подход к каждому клиенту, 
+                    моментальная обработка поступающих запросов.
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    Если Вам требуется перевезти грузы, наши менеджеры готовы проконсультировать Вас и сделать оптимальный 
+                    расчет стоимости перевозки.
+                    Высокое качество, строгое соответствие договорным срокам и адекватная ценовая политика
+                    являются теми самыми принципиальными условиями, согласно которым компания осуществляет свою 
+                    деятельность.
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    «БМКА» ГмбХ  уважает каждого партнера вне зависимости от направления и объема бизнеса. 
+                    Наша компания нацелена исключительно на взаимовыгодное длительное
+                    сотрудничество, основанное на высокой степени ответственности обеих сторон.
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    Безупречная деловая репутация - тот фактор, к которому мы стремимся в своей работе с Вами!
+                </p>
+                <p class="text-center px-5 py-2 pb-3 mx-auto">
+                    Наша компания выберет оптимальные пути доставки Вашего 
+                    груза с полным учетом характеристик груза, сроков на доставку, гарантии безопасности и Ваших личных пожеланий.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid my-5">
+        <h2 class="text-center display-4 my-3">Как до нас добраться?</h2>
+        <div class="container embed-responsive embed-responsive-21by9">
+            <iframe class="map embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45755.24304051268!2d10.192474616926912!3d53.66923847412888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b21f8a3be327ff%3A0xd7f63eb36a94654!2z0JDRgNC10L3RgdCx0YPRgNCzLCDQk9C10YDQvNCw0L3QuNGP!5e1!3m2!1sru!2s!4v1597734402707!5m2!1sru!2s" 
+            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+        <p class="text-center"><a class=" yandex-link" target="_blank" href="https://yandex.ru/maps/115102/ahrensburg/?l=sat%2Cskl&ll=10.240634%2C53.674395&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fll%3D10.234%252C53.670%26spn%3D0.052%252C0.029%26text%3DDeutschland%252C%2520Schleswig-Holstein%252C%2520Stormarn%252C%2520Ahrensburg&z=14">Посмотреть в Яндекс картах</a></p>
+    </div>
+    {% for state in about %}
+        <div class="container-fluid">
+            {% if state.about_heading_ru is not none and state.about_heading_ru != "" %}
+                <h2 class="text-center display-4 adaptive-heading">{{ state.about_heading_ru }}</h2>
+            {% endif %}
+            <div class="container mx-auto my-4 py-3 main-article-picker">
+                <div class="container mx-auto my-3 p-3 main-article">
+                    {% if state.img_link is not none and state.img_link != "" %}
+                        <img class="img-fluid my-3 mx-auto d-block" src="{{state.img_link}}" alt="Picture">
+                    {% endif %}
+                    <p class="text-center p-2 pt-3 mx-auto about-text">
+                        {% if state.about_text_ru is not none and state.about_text_ru != "" %}
+                            {{ state.about_text_ru }}
+                        {% endif %}
+                    </p>
+                    {% if current_user.has_role('admin') %}
+                    <div class="ml-4">
+                        <a href="/ru/about/{{ state.id }}/edit" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                        <a href="/ru/about/{{ state.id }}/del" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

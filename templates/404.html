@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not found</title>
+
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{url_for('static', filename='media/bmka-ico.png')}}" type="image/x-icon">
+    
+    <!-- CSS static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+<body>
+    <div class="my-3">
+        <img src="{{ url_for('static', filename='media/bmka-logo.png') }}" alt="logo" width="150" height="200" class="img-fluid mx-auto d-block">
+        <h1 class="text-center display-1">404</h1>
+        <h2 class="text-center display-4">Error! Seite nicht gefunden.   <a class="lead" href="/">Gehen Sie zurück zur Wichtig</a></h2>
+        <h2 class="text-center display-4">Error! Page not found.   <a class="lead" href="/en">Go back to the main page</a></h2>
+        <h2 class="text-center display-4">Ошибка! Страница не найдена.   <a class="lead" href="/ru">Вернуться на главную</a></h2>
+    </div>
+</body>
+</html>

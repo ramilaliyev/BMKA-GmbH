@@ -1,0 +1,33 @@
+{% extends 'base_de.html' %}
+
+{% block headTitle %}
+    Dienstleistungen
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2 class="display-4 text-center">Unsere Dienstlei<wbr>stungen</h2>
+        <div class="row container mx-auto my-3 mb-5 p-3 main-article-picker">
+            {% for service in services %}
+                <div class="card main-article mx-auto my-2" style="width: 20rem;">
+                    {% if service.img_link is not none and service.service_img_link != ""  %}
+                        <img src="{{service.img_link}}" class=" my-3 mx-auto p-3 card-img-top index-pic" alt="Picture">
+                    {% endif %}
+                    <div class="card-body text-center m-3">
+                        <h5 class="card-title"><b>{{ service.service_title_de }}</b></h5>
+                        {% if service.service_intro_de is not none %}
+                            <p class="card-text p-2">
+                                {{ service.service_intro_de }}
+                            </p>
+                        {% endif %}
+                        <a href="{{ url_for('service_detail_de', slug= service.slug) }}" class="btn btn-service-card p-1">Mehr erfahren</a>
+                        {% if current_user.has_role('admin') %}
+                            <a href="/services/{{ service.slug }}/edit" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                            <a href="/services/{{ service.slug }}/del" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

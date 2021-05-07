@@ -1,0 +1,33 @@
+{% extends 'base_ru.html' %}
+
+{% block headTitle %}
+    Новый контакт
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2 class="display-4 text-center">Новый контакт</h2>
+        <div class="my-4 container main-article-picker">
+            <form action="{{ url_for('create_contact') }}" method="POST">
+                {% for field in form %}
+                    <div class="form-group container">
+                        <b>{{ field.label(class="control-label m-3") }}</b>
+                        {{ field(class="form-control") }}
+                    </div>
+                {% endfor %}
+    
+                <button type="submit" class="btn btn-outline-light mx-auto d-block">Создать</button>
+                <p class="text-center">&#160;</p>
+            </form>
+
+            <br>
+
+            <p class="text-center"><b>*</b>Обязательно к заполнению!</p>
+
+            <p class="text-center"><b>**</b>Примечание: берется с сайта <a class="tip-link" target="_blank" href='https://fontawesome.bootstrapcheatsheets.com/#'>Font Awesome</a></p>
+
+            <p class="text-center"><b>***</b>Название записывается без точки (например: fa-globe)</p>
+        </div>
+    </div>
+{% endblock %}
+

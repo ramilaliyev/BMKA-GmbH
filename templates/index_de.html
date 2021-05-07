@@ -1,0 +1,41 @@
+{% extends 'base_de.html' %}
+
+{% block headTitle %}
+    Wichtig
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="col-md-9 container mx-auto my-3 mb-5 p-3 main-article-picker">
+            <div class="container main-article row mx-auto my-3">
+                <div class="container col-md-6 mx-auto my-3">
+                    <img src="{{ url_for('static', filename='media/bmka-logo.png') }}" id="intro-logo" alt="Picture" class="img-fluid mx-auto d-block intro-pic my-auto mb-0">
+                </div>
+                <div class="container col-md-6 mx-auto my-3">
+                    <p class="text-center intro-text">
+                        <b>Die Firma "BMKA" GmbH.  spezialisiert sich auf Transport aller Art von Waren. 
+                            Transportierung erfolgt innerhalb von Hamburg und Europa auch innerhalb zwischen den Städten.</b>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <h2 class="display-4 text-center">Unsere Dienstlei<wbr>stungen</h2>
+        <div class="col-md-9 container mx-auto my-3 mb-5 p-3 main-article-picker">
+            {% for service in services %}
+            <a class="index-link" href="/services">
+                <div class="container row my-3 mx-auto p-3 main-article">
+                    {% if service.img_link is not none %}
+                    <div class="col-md-6">
+                        <img src="{{ service.img_link }}" alt="Picture" class="img-fluid p-3 index-pic mx-auto d-block">
+                    </div>
+                {% endif %}
+                <div class="{% if service.img_link is not none %} col-md-6 {% endif %} main-article-text">
+                    <p class="my-3 text-center index-text"><b>{{ service.service_title_de }}</b></p>
+                </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

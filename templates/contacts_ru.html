@@ -1,0 +1,30 @@
+{% extends 'base_ru.html' %}
+
+{% block headTitle %}
+    Контакты
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2 class="text-center display-4 adaptive-heading">Наши контакты</h2>
+        <div class="container mx-auto my-4 py-3 main-article-picker">
+            <div class="container mx-auto my-3 p-3 main-article contact-links">
+                <img class="img-fluid mx-auto d-block contact-pic" src="{{ url_for('static', filename='media/Contacts.png') }}" alt="Picture">
+                {% for contact in contacts %}
+                    <p class="text-center p-2 pb-3 mx-auto">
+                        <a target="_blank" href="{{ contact.link }}">
+                            <i class="fa {{ contact.fa_link }}"></i>&#160; 
+                            {% if contact.contacts_text_ru is not none %}
+                                {{  contact.contacts_text_ru  }}
+                            {% endif %}
+                        </a>
+                        {% if current_user.has_role('admin') %}
+                            <a href="/contacts/{{ contact.id }}/edit" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                            <a href="/contacts/{{ contact.id }}/del" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

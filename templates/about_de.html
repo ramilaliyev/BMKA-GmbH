@@ -1,0 +1,75 @@
+{% extends 'base_de.html' %}
+
+{% block headTitle %}
+    Über uns
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2 class="text-center display-4 adaptive-heading">Über uns</h2>
+        <div class="container mx-auto my-4 py-3 main-article-picker">
+            <div class="container mx-auto my-3 p-3 main-article">
+                <img class="img-fluid mx-auto d-block about-pic" src="{{ url_for('static', filename='media/About.png') }}" alt="Picture">
+                <p class="text-center px-5 py-2 pt-3 mx-auto">
+                    Die Firma "BMKA" GmbH  spezialisiert sich auf Transport aller Art von Waren. 
+                    Transportierung erfolgt innerhalb von Hamburg und Europa auch innerhalb zwischen den Städten.
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    Unser Haupt Faktor ist individuelles 
+                    Vorgehen zu jedem Kunden und wir haben eine schnelle Bearbeitung der Daten.  
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    Wenn Ihr Ladung braucht, unsere Leiter sind bereit euch damit zu helfen und machen einen optimale Berechnung. 
+                    Hohe Qualität, strenge 
+                    Befolgung des abgemachten Termins und faire Preise sind die Haupt Bedingungen mit denen die Fima realisiert.
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    "BMKA" GmbH  respektiert jeden Partner unabhängig von der Richtung und der Größe des Geschäftes. 
+                    Unsere konzentriert sich nur auf Lang fristiges Koorperation aufgebaute von der Verantwortung beiden Seiten.
+                </p>
+                <p class="text-center px-5 py-2 mx-auto">
+                    Perfekte geschäftliche Situation ist der Faktor den wir erreichen wollen mit euch!
+                </p>
+                <p class="text-center px-5 py-2 pb-3 mx-auto">
+                    Unser Unternehmen wählt einen optimalen Weg für den Transport mit allen individualiteten des Produktes, 
+                    mit der 
+                    Befolgung des abgemachten Termins, Garantie für die Sicherheit der Ware und eure persönliches Wunsches.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid my-5">
+        <h2 class="text-center display-4 my-3">Wie komme ich zu uns?</h2>
+        <div class="container embed-responsive embed-responsive-21by9">
+            <iframe class="map embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45755.24304051268!2d10.192474616926912!3d53.66923847412888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b21f8a3be327ff%3A0xd7f63eb36a94654!2z0JDRgNC10L3RgdCx0YPRgNCzLCDQk9C10YDQvNCw0L3QuNGP!5e1!3m2!1sru!2s!4v1597734402707!5m2!1sru!2s" 
+            frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+        <p class="text-center"><a class=" yandex-link" target="_blank" href="https://yandex.ru/maps/115102/ahrensburg/?l=sat%2Cskl&ll=10.240634%2C53.674395&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fll%3D10.234%252C53.670%26spn%3D0.052%252C0.029%26text%3DDeutschland%252C%2520Schleswig-Holstein%252C%2520Stormarn%252C%2520Ahrensburg&z=14">In Yandex-Karten anzeigen</a></p>
+    </div>
+    {% for state in about %}
+        <div class="container-fluid">
+            {% if state.about_heading_de is not none and state.about_heading_de != "" %}
+                <h2 class="text-center display-4 adaptive-heading">{{ state.about_heading_de }}</h2>
+            {% endif %}
+            <div class="container mx-auto my-4 py-3 main-article-picker">
+                <div class="container mx-auto my-3 p-3 main-article">
+                    {% if state.img_link is not none and state.img_link != "" %}
+                        <img class="img-fluid my-3 mx-auto d-block" src="{{state.img_link}}" alt="Picture">
+                    {% endif %}
+                    <p class="text-center p-2 pt-3 mx-auto about-text">
+                        {% if state.about_text_de is not none and state.about_text_de != "" %}
+                            {{ state.about_text_de }}
+                        {% endif %}
+                    </p>
+                    {% if current_user.has_role('admin') %}
+                    <div class="ml-4">
+                        <a href="/about-us/{{ state.id }}/edit" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i></a>
+                        <a href="/about-us/{{ state.id }}/del" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

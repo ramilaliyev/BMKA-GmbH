@@ -1,0 +1,24 @@
+{% extends 'base_ru.html' %}
+
+{% block headTitle %}
+    Новая грузовая транспортная услуга
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h2 class="display-4 text-center">Новая грузовая транспортная услуга</h2>
+        <div class="my-4 container main-article-picker">
+            <form action="{{ url_for('create_cargo_service') }}" method="POST">
+                {% for field in form %}
+                    <div class="form-group container">
+                        <b>{{ field.label(class="control-label m-3") }}</b>
+                        {{ field(class="form-control") }}
+                    </div>
+                {% endfor %}
+    
+                <button type="submit" class="btn btn-outline-light mx-auto d-block">Создать</button>
+                <p class="text-center">&#160;</p>
+            </form>
+        </div>
+    </div>
+{% endblock %}
